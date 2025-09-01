@@ -30,20 +30,28 @@
     <meta name="twitter:image" content="https://elf-on-the-shelf-ideas.pages.dev/elf-on-shelf-ideas-cover.png"> <!-- Replace with your image -->
 
    <!-- ✅ Optimized Styles & Fonts -->
-<!-- Preconnect for faster font loading -->
+<!-- ✅ Optimized Styles & Fonts -->
+
+<!-- Preconnect: helps fonts & CDN load faster -->
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<!-- Tailwind CSS (async load with preload fallback) -->
+<!-- Tailwind CSS (preload + noscript fallback) -->
 <link rel="preload" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"></noscript>
+<noscript>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</noscript>
 
-<!-- Font Awesome (async load with preload fallback) -->
+<!-- Font Awesome (preload + noscript fallback) -->
 <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
+<noscript>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</noscript>
 
-<!-- Google Fonts (with display=swap for non-blocking text render) -->
+<!-- Google Fonts (display=swap stops CLS) -->
 <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
 
 <script type="application/ld+json">
 {
