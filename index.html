@@ -779,21 +779,6 @@
                 activeButton.classList.add('active');
             }
         });
- document.querySelectorAll('.saveImageBtn').forEach(button => {
-    button.addEventListener('click', function() {
-      const imageUrl = this.getAttribute('data-image-url');
-      const fileName = this.getAttribute('data-file-name') || 'download.png';
-
-      const link = document.createElement('a');
-      link.href = imageUrl;
-      link.download = fileName;
-
-      // Append to body, trigger click, then remove
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    });
-  });
 
         // Show/hide back to top button
         window.addEventListener('scroll', function() {
