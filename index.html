@@ -779,24 +779,20 @@
                 activeButton.classList.add('active');
             }
         });
-  document.getElementById('saveImageBtn').addEventListener('click', function() {
-    // Image URL to download
-    const imageUrl = 'https://ritamdebnatharc.github.io/Elf-on-the-Shelf-Ideas/Gemini_Generated_Image_av0pfmav0pfmav0p.png';
-    const fileName = 'Gemini_Generated_Image.png';
+ document.querySelectorAll('.saveImageBtn').forEach(button => {
+    button.addEventListener('click', function() {
+      const imageUrl = this.getAttribute('data-image-url');
+      const fileName = this.getAttribute('data-file-name') || 'download.png';
 
-    // Create a temporary link element
-    const link = document.createElement('a');
-    link.href = imageUrl;
-    link.download = fileName;
+      const link = document.createElement('a');
+      link.href = imageUrl;
+      link.download = fileName;
 
-    // Append link to body
-    document.body.appendChild(link);
-
-    // Trigger click on the link to download
-    link.click();
-
-    // Remove the link element from the DOM
-    document.body.removeChild(link);
+      // Append to body, trigger click, then remove
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
   });
 
         // Show/hide back to top button
