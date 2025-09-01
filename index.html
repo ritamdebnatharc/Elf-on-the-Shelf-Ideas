@@ -722,93 +722,114 @@
     </div>
 
     <script>
-        // Snowfall Animation
-        function createSnowfall() {
-            const snowfall = document.getElementById('snowfall');
-            const snowflakes = ['❄', '❅', '✻', '✼', '❋', '✧'];
+    // Snowfall Animation
+    function createSnowfall() {
+        const snowfall = document.getElementById('snowfall');
+        const snowflakes = ['❄', '❅', '✻', '✼', '❋', '✧'];
+        
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.className = 'snowflake';
+            snowflake.innerHTML = snowflakes[Math.floor(Math.random() * snowflakes.length)];
+            snowflake.style.left = Math.random() * 100 + '%';
+            snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
+            snowflake.style.opacity = Math.random() * 0.6 + 0.4;
+            snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
             
-            function createSnowflake() {
-                const snowflake = document.createElement('div');
-                snowflake.className = 'snowflake';
-                snowflake.innerHTML = snowflakes[Math.floor(Math.random() * snowflakes.length)];
-                snowflake.style.left = Math.random() * 100 + '%';
-                snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
-                snowflake.style.opacity = Math.random() * 0.6 + 0.4;
-                snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
-                
-                snowfall.appendChild(snowflake);
-                
-                setTimeout(() => {
-                    snowflake.remove();
-                }, 5000);
-            }
+            snowfall.appendChild(snowflake);
             
-            setInterval(createSnowflake, 300);
+            setTimeout(() => {
+                snowflake.remove();
+            }, 5000);
         }
+        
+        setInterval(createSnowflake, 300);
+    }
 
-        // Smooth Scroll Functions
-        function scrollToIdeas() {
-            document.getElementById('ideas-grid').scrollIntoView({
-                behavior: 'smooth'
-            });
-        }
-
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-
-        // Pagination Functionality
-        function handlePagination() {
-            const buttons = document.querySelectorAll('.pagination-btn');
-            buttons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Remove active class from all buttons
-                    buttons.forEach(btn => btn.classList.remove('active'));
-                    
-                    // Add active class to clicked button
-                    this.classList.add('active');
-                    
-                    // Update URL
-                    const page = this.dataset.page;
-                    const url = new URL(window.location);
-                    url.searchParams.set('page', page);
-                    window.history.pushState({}, '', url);
-                    
-                    // Here you would typically load new content
-                    console.log(`Loading page ${page}`);
-                });
-            });
-        }
-
-        // Initialize everything when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            createSnowfall();
-            handlePagination();
-            
-            // Set initial page based on URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const page = urlParams.get('page') || '1';
-            const activeButton = document.querySelector(`[data-page="${page}"]`);
-            if (activeButton) {
-                document.querySelectorAll('.pagination-btn').forEach(btn => btn.classList.remove('active'));
-                activeButton.classList.add('active');
-            }
+    // Smooth Scroll Functions
+    function scrollToIdeas() {
+        document.getElementById('ideas-grid').scrollIntoView({
+            behavior: 'smooth'
         });
+    }
 
-        // Show/hide back to top button
-        window.addEventListener('scroll', function() {
-            const backToTop = document.querySelector('.back-to-top');
-            if (window.scrollY > 500) {
-                backToTop.style.opacity = '1';
-                backToTop.style.visibility = 'visible';
-            } else {
-                backToTop.style.opacity = '0';
-                backToTop.style.visibility = 'hidden';
-            }
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
         });
-    </script>
+    }
+
+    // Pagination Functionality
+    function handlePagination() {
+        const buttons = document.querySelectorAll('.pagination-btn');
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                buttons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Update URL
+                const page = this.dataset.page;
+                const url = new URL(window.location);
+                url.searchParams.set('page', page);
+                window.history.pushState({}, '', url);
+                
+                // Here you would typically load new content
+                console.log(`Loading page ${page}`);
+            });
+        });
+    }
+
+    // Save Image Functionality
+    function enableImageSaving() {
+        document.querySelectorAll("#ideasContainer button").forEach((button) => {
+            button.addEventListener("click", function () {
+                const card = button.closest(".bg-white"); // Find parent card
+                const img = card.querySelector("img");    // Get image inside card
+
+                if (img) {
+                    const link = document.createElement("a");
+                    link.href = img.src;
+                    link.download = (img.alt || "elf-image").replace(/\s+/g, "_") + ".png";
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+            });
+        });
+    }
+
+    // Initialize everything when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        createSnowfall();
+        handlePagination();
+        enableImageSaving(); // ✅ enable Save Image buttons
+
+        // Set initial page based on URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const page = urlParams.get('page') || '1';
+        const activeButton = document.querySelector(`[data-page="${page}"]`);
+        if (activeButton) {
+            document.querySelectorAll('.pagination-btn').forEach(btn => btn.classList.remove('active'));
+            activeButton.classList.add('active');
+        }
+    });
+
+    // Show/hide back to top button
+    window.addEventListener('scroll', function() {
+        const backToTop = document.querySelector('.back-to-top');
+        if (window.scrollY > 500) {
+            backToTop.style.opacity = '1';
+            backToTop.style.visibility = 'visible';
+        } else {
+            backToTop.style.opacity = '0';
+            backToTop.style.visibility = 'hidden';
+        }
+    });
+</script>
+
 </body>
 </html>
