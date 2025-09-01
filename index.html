@@ -219,9 +219,11 @@
                 <div class="p-6">
                     <h3 class="text-xl font-semibold mb-2 text-pine-green">Cookie Decorating Elf</h3>
                     <p class="text-gray-600 mb-4">Easy elf ideas where your elf is caught decorating cookies with mini sprinkles and frosting.</p>
-                    <button class="btn-primary text-white px-4 py-2 rounded-lg w-full">
-                        <i class="fas fa-download mr-2"></i>Save Image
-                    </button>
+                   <button id="saveImageBtn" class="btn-primary text-white px-4 py-2 rounded-lg w-full">
+  <i class="fas fa-download mr-2"></i>Save Image
+</button>
+
+
                 </div>
             </div>
 
@@ -777,6 +779,25 @@
                 activeButton.classList.add('active');
             }
         });
+  document.getElementById('saveImageBtn').addEventListener('click', function() {
+    // Image URL to download
+    const imageUrl = 'https://ritamdebnatharc.github.io/Elf-on-the-Shelf-Ideas/Gemini_Generated_Image_av0pfmav0pfmav0p.png';
+    const fileName = 'Gemini_Generated_Image.png';
+
+    // Create a temporary link element
+    const link = document.createElement('a');
+    link.href = imageUrl;
+    link.download = fileName;
+
+    // Append link to body
+    document.body.appendChild(link);
+
+    // Trigger click on the link to download
+    link.click();
+
+    // Remove the link element from the DOM
+    document.body.removeChild(link);
+  });
 
         // Show/hide back to top button
         window.addEventListener('scroll', function() {
